@@ -18,20 +18,19 @@ public:
                     while (l < r && nums[r] == nums[r - 1]) {
                         r--;
                     }
-            l++;
-            r--;
+                    l++;
+                    r--;
                 }
-            
-            if (sum > 0) {
-                r--;
+
+                if (sum > 0) {
+                    r--;
+                }
+                if (sum < 0) {
+                    l++;
+                }
             }
-           if(sum<0){
-                l++;
-            }
-        }
-        }
-    
-        return ans;
         }
 
+        return ans;
+    }
 };
