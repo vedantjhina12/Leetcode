@@ -5,14 +5,13 @@ public:
             for(int j=i;j<matrix.size();j++){
                 swap(matrix[i][j],matrix[j][i]);
             }
-
         }
         for(int i=0;i<matrix.size();i++){
-            int left=0,right=matrix.size()-1;
-            while(left<right){
-                swap(matrix[i][left],matrix[i][right]);
-                left++;
-                right--;
+                int left=0,right=matrix.size()-1;
+                while(left<right){
+                    swap(matrix[i][left],matrix[i][right]);
+                    left++;
+                    right--;
             }
         }
     }
