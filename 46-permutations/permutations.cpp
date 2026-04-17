@@ -1,5 +1,13 @@
 class Solution {
 public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int index=0;
+
+        solve(nums,ans,index);
+        return ans;
+    }
+
     void solve(vector<int> &nums,vector<vector<int>> &ans,int index){
 
         if(index>=nums.size()){
@@ -13,12 +21,4 @@ public:
 
         }
     }
-    vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> ans;
-        int index=0;
-
-        solve(nums,ans,index);
-        return ans;
-    }
-
 };
