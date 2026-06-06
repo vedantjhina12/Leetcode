@@ -10,31 +10,64 @@
  */
 class Solution {
 public:
-    bool checkpalindrome(vector<int> arr){
-        int n=arr.size();
-        int start=0;
-        int end=n-1;
+    // int getlength(ListNode* temp) {
+    //     int len = 0;
+    //     while (temp != NULL) {
+    //         len++;
+    //         temp = temp->next;
+    //     }
+    //     return len;
+    // }
 
-        while(start<=end){
-            if(arr[start]!=arr[end]){
-                return false;
-            }
-            start++;
-            end--;
+    ListNode* findmiddle(ListNode* head) {
+        ListNode* slow=head;
+        ListNode* fast=head->next;
 
+        while(fast!=NULL&&fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        return true;
+        return slow;
 
+    }
+    ListNode* reverse(ListNode* head) {
+
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        ListNode* forward = NULL;
+
+        while (curr != NULL) {
+            forward = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = forward;
+        }
+
+        return prev;
     }
 
     bool isPalindrome(ListNode* head) {
-        vector<int> arr;
-        ListNode * temp=head;
-
-        while(temp!=NULL){
-            arr.push_back(temp->val);
-            temp=temp->next;
+        if (head == NULL || head->next == NULL) {
+            return true;
         }
-        return checkpalindrome(arr);
+        ListNode* middle = findmiddle(head);
+
+        ListNode* temp = middle->next;
+        middle->next = reverse(temp);
+
+        ListNode* head1 = head;
+        ListNode* head2 = middle->next;
+
+        while (head2 != NULL) {
+            if (head1->val != head2->val) {
+                return false;
+            }
+            head1 = head1->next;
+            head2 = head2->next;
+        }
+
+        return true;
     }
-};
+
+}
+;
