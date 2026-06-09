@@ -10,22 +10,9 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode* temp){
-        ListNode* curr=temp;
-        ListNode* prev=NULL;
-        ListNode* forward=NULL;
-
-        while(curr!=NULL){
-            forward=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=forward;
-        }
-        return prev;
-
-    }
-    void inserAtTail(ListNode* &head, ListNode* &tail,int data){
+    ListNode* insertattail(ListNode* &head,ListNode* &tail,int data){
         ListNode* ans=new ListNode(data);
+
         if(head==NULL){
             head=ans;
             tail=ans;
@@ -34,53 +21,55 @@ public:
             tail->next=ans;
             tail=ans;
         }
+        return head;
     }
-    ListNode* add(ListNode* list1, ListNode* list2){
+
+    ListNode*add(ListNode* list1,ListNode* list2){
         int carry=0;
-        ListNode* ansHead=NULL;
-        ListNode* ansTail=NULL;
-        while(list1!=NULL&&list2!=NULL){
-            int sum=list1->val+list2->val+carry;
+        ListNode* anshead=NULL;
+        ListNode* anstail=NULL;
+        while(list1!=NULL||list2!=NULL||carry!=0){
+            int val1=0;
+            if(list1!=NULL){
+                val1=list1->val;
+            }
+            int val2=0;
+            if(list2!=NULL){
+                val2=list2->val;
+            }
+            int sum=val1+val2+carry;
             int digit=sum%10;
-            inserAtTail(ansHead,ansTail,digit); 
+            insertattail(anshead,anstail,digit);
             carry=sum/10;
-            list1=list1->next;
-            list2=list2->next;
+            if(list1!=NULL)
+                list1=list1->next;
+            if(list2!=NULL)
+                list2=list2->next;
         }
-        while(list1!=NULL){
-            int sum=list1->val+carry;
-            int digit=sum%10;
-            inserAtTail(ansHead,ansTail,digit); 
-            carry=sum/10;
-            list1=list1->next;
-            // list2=list2->next;
-        }
-
-        while(list2!=NULL){
-            int sum=list2->val+carry;
-            int digit=sum%10;
-            inserAtTail(ansHead,ansTail,digit); 
-            carry=sum/10;
-            // list1=list1->next;
-            list2=list2->next;
-        }
-        while(carry!=0){
-            int sum=carry;
-            int digit=sum%10;
-            inserAtTail(ansHead,ansTail,digit); 
-            carry=sum/10;
-        }
-        return ansHead;
+  
+        return anshead;
 
     }
-    
+
+    ListNode* reverse(ListNode* head){
+        ListNode* curr=head;
+        ListNode* forward=NULL;
+        ListNode* prev=NULL;
+
+        while(curr!=NULL){
+            forward=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forward;
+        }
+
+        return prev;
+    }
+
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode* list1=reverse(l1);
         ListNode* list2=reverse(l2);
-
-        ListNode* ans=add(list1,list2);
-        
+        ListNode*ans=add(list1,list2);
         return reverse(ans);
-        
     }
 };
